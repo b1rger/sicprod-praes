@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>SiCProD digital: vom Datenmodell zur Visualisierung prosopographischer Daten</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/acdh-ch-oeaw.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+		<script src="https://unpkg.com/feather-icons"></script>
+	</head>
+	<body>
+		<div id="header" style="z-index: 99999;">SiCProD digital: vom Datenmodell zur Visualisierung prosopographischer Daten
+			<br/>Birger Schacht, Katharina Wünsche, ACDH-CH (Austrian Academy of Sciences)
+		</div>
+		<div class="reveal">
+			<div class="slides">
+				<style>
+.fragment.blur {
+	filter: blur(5px);
+	opacity: 1 !important;
+	visibility: visible !important;
+}
+.fragment.blur.visible {
+	filter: none;
+}
+				</style>
+				<section data-markdown>
+					<textarea data-template>
+					## SiCProD digital
+					#### vom Datenmodell zur Visualisierung prosopographischer Daten
+					<br/>
+					<br/>
+					<p>
+						<small style="font-style: italic;">Space for running through the slides, ESC for an overview</small>
+					</p>
+					</textarea>
+				</section>
+				<section>
+					<p class="fragment custom blur">Datenmodell</p>
+					<p class="fragment custom blur">APIS</p>
+					<p class="fragment custom blur">Development Stack</p>
+					<p class="fragment custom blur">Frontend</p>
+				</section>
+				<section>
+					<h3>Entitäten</h3>
+					<p>Person</p>
+					<p>Ort</p>
+					<p>Ereignis</p>
+					<p>Institution</p>
+					<p>Funktion</p>
+					<p>Gehalt</p>
+					<p>Hof</p>
+				</section>
+				<section>
+					<p>Resource Description Framework</p>
+					<p>Triple</p>
+					<img src="images/Basic_RDF_Graph.svg">
+				</section>
+				<section>
+					<h3>Typische Triple Beispiele</h3>
+					<p>Person bewohnt Ort</p>
+					<p>Person hat Familienbeziehung zu</p>
+				</section>
+				<section>
+					<img src="images/Datenmodell_2022.svg">
+				</section>
+				<section>
+					<img src="images/Screenshot-2024-09-09-105821.png">
+				</section>
+				<section>
+					APIS
+				</section>
+				<section data-markdown>>
+					<textarea data-template>
+					# Thanks
+					</textarea>
+				</section>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/animate/plugin.js"></script>
+		<script src="plugin/animate/svg.min.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				width: 1400,
+				height: 900,
+				controls: false,
+				//showNotes: 'separate-page',
+				//pdfSeparateFragments: false,
+				margin: 0.04,
+
+				minScale: 0.2,
+				maxScale: 2.0,
+
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealAnimate ],
+				animate: {
+				    autoplay: true
+	 		   }
+
+			});
+			feather.replace();
+		</script>
+	</body>
+</html>
