@@ -1,3 +1,3 @@
-# Presentation APIS Kickoff meeting 2023-06-05
+# Presentation SiCProD
 
-Live version of the presentation can be accessed [here](https://sennierer.github.io/intavia-crm-sig-5-2023/)
+Live version of the presentation can be accessed [here](https://b1rger.github.io/sicprod-praes/)
