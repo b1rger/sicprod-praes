@@ -49,13 +49,18 @@
 				</section>
 				<section>
 					<h3>Entitäten</h3>
-					<p>Person</p>
-					<p>Ort</p>
-					<p>Ereignis</p>
-					<p>Institution</p>
-					<p>Funktion</p>
-					<p>Gehalt</p>
-					<p>Hof</p>
+          <p>
+          <div style="float: inline-start;">Person</div><div style="float: inline-end;">Ereignis</div>
+          </p>
+          <p>
+          Ort
+          </p>
+          <p>
+          <div style="float: left;">Funktion</div><div style="float: right;">Gehalt</div>
+          </p>
+          <p>
+          Institution
+          </p>
 				</section>
 				<section>
 					<p>Resource Description Framework</p>
@@ -71,15 +76,206 @@
 					<img src="images/Datenmodell_2022.svg">
 				</section>
 				<section>
-					<img src="images/Screenshot-2024-09-09-105821.png">
+					<img src="images/screenshot-issues.png">
 				</section>
+        <section>
+          <img src="images/Datenmodell_202409.svg">
+        </section>
 				<section>
-					APIS
+          <h3>APIS</h3>
+          <p>web basiert</p>
+          <p>Django</p>
+          <p>Python</p>
 				</section>
-				<section data-markdown>>
-					<textarea data-template>
-					# Thanks
-					</textarea>
+        <section>
+          <h3>APIS</h3>
+          <p>CRUD</p>
+          <p>Zusammenführen</p>
+          <p>Duplizieren</p>
+          <p>Importieren</p>
+        </section>
+        <section>
+          <h3>APIS Usecases</h3>
+        </section>
+        <section>
+          <p>
+          <img src="images/screenshot-mine.png">
+          </p>
+          <img src="images/qr-code-mine.svg" width="20%">
+        </section>
+        <section>
+          <p>
+          <img src="images/screenshot-oebl.png">
+          </p>
+          <img src="images/qr-code-oebl.svg" width="20%">
+        </section>
+        <section>
+          <p>
+           <img src="images/screenshot-frischmuth.png">
+          </p>
+          <img src="images/qr-code-frischmuth.svg" width="20%">
+        </section>
+        <section>
+          <h3>APIS Usecases</h3>
+          <p>MINE</p>
+          <p>OEBL</p>
+          <p>Frischmuth</p>
+          <p>ViecPro</p>
+          <p>Jelinek</p>
+          <p>Tibschol</p>
+          <p>Nomansland</p>
+          <p>PAAS</p>
+        </section>
+        <section>
+          <h3>Datenmodell -> APIS</h3>
+          <pre><code data-trim data-noescape>
+class Person(VersionMixin, LegacyStuffMixin, LegacyDateMixin, AbstractEntity):
+    """
+    Person in SiCProD
+    """
+    _default_search_fields = ["first_name", "name", "alternative_label"]
+    first_name = models.CharField(max_length=1024, blank=True, null=True, verbose_name = "Vorname", help_text = "Vorname der Person.")
+    name = models.CharField(max_length=255, verbose_name="Name", blank=True)
+    GENDER_CHOICES = (("männlich", "männlich"), ("weiblich", "weiblich"), ("unbekannt", "unbekannt"), )
+    gender = models.CharField(max_length=9, choices=GENDER_CHOICES, blank=True, verbose_name = "Geschlecht", help_text = "Geschlecht der Person.")
+    alternative_label = models.TextField(blank=True, null=True, verbose_name = "Alternative Namen", help_text = "Feld um alternative Namen anzugeben.")
+
+
+class Place(VersionMixin, LegacyStuffMixin, LegacyDateMixin, AbstractEntity):
+    """
+    Orte in SiCProD
+    """
+    _default_search_fields = ["name", "alternative_label"]
+    name = models.CharField(max_length=255, verbose_name="Name", blank=True)
+    alternative_label = models.TextField(blank=True, null=True, verbose_name = "Alternativer Name", help_text = "Alternativer Name für einen Ort.")
+    TYPE_CHOICES = (("Stadt", "Stadt"), ("Dorf/Nachbarschaft/Gemein/Siedlung/Weiler", "Dorf/Nachbarschaft/Gemein/Siedlung/Weiler"), ("Burg/Schloss", "Burg/Schloss"), ("Land/Herrschaftskomplex", "Land/Herrschaftskomplex"), ("Landschaft/Region", "Landschaft/Region"), ("Lehen", "Lehen"), ("Haus/Hof", "Haus/Hof"), ("Gericht", "Gericht"), ("Kloster", "Kloster"), ("Gewässer", "Gewässer"), ("Grundherrschaft", "Grundherrschaft"), ("Hofmark", "Hofmark"), ("Tal", "Tal"), ("Berg", "Berg"), ("Bergrevier", "Bergrevier"), ("Pflege", "Pflege"), ("(Land-)Vogtei", "(Land-)Vogtei"), ("Propstei", "Propstei"), )
+    type = models.CharField(max_length=41, choices=TYPE_CHOICES, blank=True, verbose_name = "Typ", help_text = "Art des Ortes.")
+    latitude = models.FloatField(null=True, blank=True, verbose_name = "Breitengrad", help_text = "Breitengrad des Ortes. Bei Polygonen wird die Mitte verwendet.")
+    longitude = models.FloatField(null=True, blank=True, verbose_name = "Längengrad", help_text = "Längengrad des Ortes. Bei Polygonen wird die Mitte verwendet.")
+    </code>
+          </pre>
+        </section>
+        <section>
+          <img src="images/screenshot-create.png">
+        </section>
+        <section>
+          <img src="images/screenshot-list.png">
+        </section>
+
+        <section>
+          <h3>API</h3>
+          <pre><code data-trim data-noescape>
+        {
+            "id": 2642,
+            "name": "Augsburg",
+            "start_date_written": null,
+            "end_date_written": null,
+            "type": "Stadt",
+            "longitude": 10.8978,
+            "latitude": 48.3705,
+            "alternative_label": [],
+            "relation_types": [
+                "event",
+                "function",
+                "person"
+            ],
+            "references": []
+        },
+        {
+            "id": 7012,
+            "name": "Axams",
+            "start_date_written": null,
+            "end_date_written": null,
+            "type": "Dorf/Nachbarschaft/Gemein/Siedlung/Weiler",
+            "longitude": 11.279166666667,
+            "latitude": 47.230277777778,
+            "alternative_label": [],
+            "relation_types": [
+                "function",
+                "institution"
+            ],
+            "references": []
+        },
+        {
+            "id": 5024,
+            "name": "Bad Aibling",
+            "start_date_written": null,
+            "end_date_written": null,
+            "type": "Stadt",
+            "longitude": 12.016667,
+            "latitude": 47.866667,
+            "alternative_label": [],
+            "relation_types": [
+                "person"
+            ],
+            "references": []
+        },
+        {
+            "id": 10878,
+            "name": "Bad Ragaz",
+            "start_date_written": null,
+            "end_date_written": null,
+            "type": "Dorf/Nachbarschaft/Gemein/Siedlung/Weiler",
+            "longitude": null,
+            "latitude": null,
+            "alternative_label": [],
+            "relation_types": [
+                "person"
+            ],
+            "references": []
+        },
+        {
+            "id": 9726,
+            "name": "Bad Urach",
+            "start_date_written": null,
+            "end_date_written": null,
+            "type": "Stadt",
+            "longitude": 9.39895,
+            "latitude": 48.4932,
+            "alternative_label": [],
+            "relation_types": [
+                "function",
+                "person"
+            ],
+            "references": []
+        },
+        {
+            "id": 2459,
+            "name": "Baden",
+            "start_date_written": null,
+            "end_date_written": null,
+            "type": "Stadt",
+            "longitude": null,
+            "latitude": null,
+            "alternative_label": [],
+            "relation_types": [
+                "person"
+            ],
+            "references": []
+        },
+        {
+            "id": 6566,
+            "name": "Bairawies",
+            "start_date_written": null,
+            "end_date_written": null,
+            "type": "Dorf/Nachbarschaft/Gemein/Siedlung/Weiler",
+            "longitude": 11.5358,
+            "latitude": 47.8344,
+            "alternative_label": [],
+            "relation_types": [
+                "person"
+            ],
+            "references": []
+        },
+        </code>
+          </pre>
+        </section>
+        <section>
+          Frontend
+        </section>
+
+				<section>
+          <h1>Thanks</h1>
 				</section>
 		</div>
 
