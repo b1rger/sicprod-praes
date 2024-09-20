@@ -20,16 +20,6 @@
 		</div>
 		<div class="reveal">
 			<div class="slides">
-				<style>
-.fragment.blur {
-	filter: blur(5px);
-	opacity: 1 !important;
-	visibility: visible !important;
-}
-.fragment.blur.visible {
-	filter: none;
-}
-				</style>
 				<section data-markdown>
 					<textarea data-template>
 					## SiCProD digital
@@ -42,31 +32,22 @@
 					</textarea>
 				</section>
 				<section>
-					<p class="fragment custom blur">Datenmodell</p>
-					<p class="fragment custom blur">APIS</p>
-					<p class="fragment custom blur">Implementierung</p>
-					<p class="fragment custom blur">Frontend</p>
+					<p>APIS</p>
+					<p>Datenmodell</p>
+					<p>Umsetzung</p>
+					<p>Frontend</p>
+				</section>
+				<section>
+          <h3>APIS</h3>
+          <p>web basiert</p>
+          <p>Django</p>
+          <p>Python</p>
 				</section>
         <section>
-          <h3>Datenmodell</h3>
-          <p>Entitäten</p>
-          <p>Relationen</p>
+         <h3>Datenmodell</h3>
+         <p>Entitäten</p>
+         <p>Relationen</p>
         </section>
-				<section>
-					<h3>Entitäten</h3>
-          <p>
-          <div style="float: inline-start;">Person</div><div style="float: inline-end;">Ereignis</div>
-          </p>
-          <p>
-          Ort
-          </p>
-          <p>
-          <div style="float: left;">Funktion</div><div style="float: right;">Gehalt</div>
-          </p>
-          <p>
-          Institution
-          </p>
-				</section>
 				<section>
 					<p>Resource Description Framework</p>
 					<p>Triple</p>
@@ -77,27 +58,30 @@
 					<p>Person bewohnt Ort</p>
 					<p>Person hat Familienbeziehung zu</p>
 				</section>
-				<section>
-					<img src="images/Datenmodell_2022.svg">
-				</section>
-				<section>
-					<img src="images/screenshot-issues.png">
-				</section>
-        <section>
-          <img src="images/Datenmodell_202409.svg">
-        </section>
-				<section>
-          <h3>APIS</h3>
-          <p>web basiert</p>
-          <p>Django</p>
-          <p>Python</p>
-				</section>
         <section>
           <h3>APIS</h3>
           <p>CRUD</p>
           <p>Zusammenführen</p>
           <p>Duplizieren</p>
           <p>Importieren</p>
+          <p>Exportieren</p>
+        </section>
+        <section>
+          <section>
+            <img src="images/screenshot-disc-create.png">
+          </section>
+          <section>
+            <img src="images/screenshot-disc-view.png">
+          </section>
+          <section>
+            <img src="images/screenshot-disc-edit.png">
+          </section>
+          <section>
+            <img src="images/screenshot-disc-list.png">
+          </section>
+          <section>
+            <img src="images/screenshot-disc-filter.png">
+          </section>
         </section>
         <section>
           <h3>APIS Usecases</h3>
@@ -130,14 +114,39 @@
           <p>Tibschol</p>
           <p>Nomansland</p>
         </section>
+				<section>
+         <h3>Entitäten</h3>
+          <p>
+          <div style="float: inline-start;">Person</div><div style="float: inline-end;">Ereignis</div>
+          </p>
+          <p>
+          Ort
+          </p>
+          <p>
+          <div style="float: left;">Funktion</div><div style="float: right;">Gehalt</div>
+          </p>
+          <p>
+          Institution
+          </p>
+				</section>
+        <section>
+          <img src="images/Datenmodell_2022.svg">
+        </section>
+        <section>
+         <img src="images/screenshot-issues.png">
+        </section>
+        <section>
+          <img src="images/Datenmodell_202409.svg">
+        </section>
         <section>
           <h3>Datenmodell -> APIS</h3>
           <pre><code data-trim data-noescape>
-class Person(VersionMixin, LegacyStuffMixin, LegacyDateMixin, AbstractEntity):
+class Person(VersionMixin, SicprodMixin, LegacyDateMixin, AbstractEntity):
     """
     Person in SiCProD
     """
     _default_search_fields = ["first_name", "name", "alternative_label"]
+
     first_name = models.CharField(max_length=1024, blank=True, null=True, verbose_name = "Vorname", help_text = "Vorname der Person.")
     name = models.CharField(max_length=255, verbose_name="Name", blank=True)
     GENDER_CHOICES = (("männlich", "männlich"), ("weiblich", "weiblich"), ("unbekannt", "unbekannt"), )
@@ -145,11 +154,12 @@ class Person(VersionMixin, LegacyStuffMixin, LegacyDateMixin, AbstractEntity):
     alternative_label = models.TextField(blank=True, null=True, verbose_name = "Alternative Namen", help_text = "Feld um alternative Namen anzugeben.")
 
 
-class Place(VersionMixin, LegacyStuffMixin, LegacyDateMixin, AbstractEntity):
+class Place(VersionMixin, SicprodMixin, LegacyDateMixin, AbstractEntity):
     """
     Orte in SiCProD
     """
     _default_search_fields = ["name", "alternative_label"]
+
     name = models.CharField(max_length=255, verbose_name="Name", blank=True)
     alternative_label = models.TextField(blank=True, null=True, verbose_name = "Alternativer Name", help_text = "Alternativer Name für einen Ort.")
     TYPE_CHOICES = (("Stadt", "Stadt"), ("Dorf/Nachbarschaft/Gemein/Siedlung/Weiler", "Dorf/Nachbarschaft/Gemein/Siedlung/Weiler"), ("Burg/Schloss", "Burg/Schloss"), ("Land/Herrschaftskomplex", "Land/Herrschaftskomplex"), ("Landschaft/Region", "Landschaft/Region"), ("Lehen", "Lehen"), ("Haus/Hof", "Haus/Hof"), ("Gericht", "Gericht"), ("Kloster", "Kloster"), ("Gewässer", "Gewässer"), ("Grundherrschaft", "Grundherrschaft"), ("Hofmark", "Hofmark"), ("Tal", "Tal"), ("Berg", "Berg"), ("Bergrevier", "Bergrevier"), ("Pflege", "Pflege"), ("(Land-)Vogtei", "(Land-)Vogtei"), ("Propstei", "Propstei"), )
